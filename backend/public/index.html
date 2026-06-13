@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FastAPI WebSocket Test</title>
+    </head>
+    <body>
+        <h1>WebSocket Test Client</h1>
+        <div id="messages"></div>
+        <input type="text" id="messageText" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="stopMessage()">Stop</button>
+        <script>
+            let session_id = "01957f9c-8c9c-7d2a-9b7e-6f3d1a2c4e5f"
+            var ws = new WebSocket(`ws://localhost:8000/runs/${session_id}`);
+            ws.onmessage = function(event) {
+                var messages = document.getElementById('messages');
+                // var message = document.createElement('div');
+                let data = JSON.parse(event.data)
+                messages.textContent += data.content;
+                // messages.appendChild(message);
+            };
+            async function sendMessage() {
+                var input = document.getElementById('messageText');
+                const jstr = JSON.stringify({
+                    "user":"u1",
+                    "session_id":"01957f9c-8c9c-7d2a-9b7e-6f3d1a2c4e5f",
+                    input : {
+                        prompt: input.value,
+                        image: "path_to_img"
+                    }
+                    })
+                    console.log(jstr)
+                const req = new Request("http://localhost:8000/sessions/run",{
+                    method: "POST",
+                    body: jstr,
+                    headers:{
+                        "content-type":"Application/Json"
+                    }
+                })
+                console.log(req)
+                let res = await fetch(req)
+                res = await res.body
+                console.log(res)
+                let message = JSON.stringify({
+                    type:"start",
+                    Run : {
+                    user:"u1",
+                    input : {
+                        prompt:input.value,
+                        image:"path_to_img"
+                    }},
+                })
+                ws.send(message);
+                input.value = '';
+            }
+            function stopMessage() {
+                let message = JSON.stringify({
+                    type:"stop", 
+                    value : `stopped by user`,
+                })
+                ws.send(message);
+            }
+        </script>
+    </body>
+</html>

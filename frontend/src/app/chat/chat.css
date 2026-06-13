@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+} 
+
+
+/* scrollbar size */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+  background: #18181b; /* zinc-900 */
+}
+
+/* thumb */
+::-webkit-scrollbar-thumb {
+  background: #3f3f46; /* zinc-700 */
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* scrollbar buttons */
+::-webkit-scrollbar-button {
+  height: 18px;
+  background: #18181b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* up arrow */
+::-webkit-scrollbar-button:vertical:decrement {
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%239ca3af'><path d='M7 14l5-5 5 5'/></svg>")
+    center no-repeat;
+    
+}
+
+/* down arrow */
+::-webkit-scrollbar-button:vertical:increment {
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%239ca3af'><path d='M7 10l5 5 5-5'/></svg>")
+    center no-repeat;
+}
+

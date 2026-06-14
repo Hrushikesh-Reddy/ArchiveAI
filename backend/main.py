@@ -7,6 +7,12 @@ from .routes import ws, sessions, utils, auth
 from loguru import logger
 from .config import settings
 from .pipeline import initialize_rag_pipeline
+import torch, os
+
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+
+torch.set_num_threads(1)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

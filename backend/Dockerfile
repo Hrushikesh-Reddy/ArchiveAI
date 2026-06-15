@@ -21,6 +21,12 @@ RUN uv sync --no-cache --no-dev --no-install-project
 # --- Stage 2: Final Runtime Stage ---
 FROM python:3.12-slim-bookworm AS runner
 
+# Install java
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends default-jre && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /rp1_backend
 
 # Copy the entire virtual environment from the builder stage

@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Auth0 Next.js App",
-  description: "Next.js app with Auth0 authentication",
+  title: "ArchiveAi",
+  description: "A Retrieval Augmented Generation application",
 };
 
 export default function RootLayout({

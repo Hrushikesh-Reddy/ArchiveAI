@@ -59,15 +59,15 @@ app.add_middleware(
 )
 
 
-app.include_router(auth.router)
-app.include_router(ws.router)
-app.include_router(utils.router)
+app.include_router(auth.router, prefix="/api")
+app.include_router(ws.router, prefix="/api")
+app.include_router(utils.router, prefix="/api")
 app.include_router(
     sessions.router,
-    prefix="/sessions", 
+    prefix="/api/sessions", 
 )
 templates = Jinja2Templates(directory="public")
 
-@app.get("/")
+@app.get("/api")
 async def get():
     return templates.TemplateResponse("index.html", {"request": {}})
